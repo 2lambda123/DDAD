@@ -132,6 +132,24 @@ def parse_args():
 
 
 def create_summary_table(ranges, classes, matrix, folder, metric):
+    """Parameters:
+        - ranges (list): A list of range values in meters.
+        - classes (list): A list of class names.
+        - matrix (numpy array): A 2D array of data.
+        - folder (str): The folder to save the summary table image.
+        - metric (str): The metric used for evaluation.
+    Returns:
+        - None: The function does not return any value.
+    Processing Logic:
+        - Prepare variables for plotting.
+        - Create a figure and axes.
+        - Set ticks and labels for the axes.
+        - Rotate tick labels and set alignment.
+        - Loop over data to create annotations.
+        - Plot the figure.
+        - Save the figure to the specified folder.
+        - Close the figure."""
+    
 
     # Prepare variables
     title = "Semantic/Range Depth Evaluation (%s) -- {}" % metric.upper()
@@ -171,6 +189,24 @@ def create_summary_table(ranges, classes, matrix, folder, metric):
 
 
 def create_bar_plot(key_range, key_class, matrix, name, idx, folder):
+    """Create a bar plot of the given matrix.
+    Parameters:
+        - key_range (str): The range of the key.
+        - key_class (str): The class of the key.
+        - matrix (list): A list of lists containing data.
+        - name (str): The name of the plot.
+        - idx (int): The index of the data to be plotted.
+        - folder (str): The folder to save the plot in.
+    Returns:
+        - None: The function does not return anything, it only creates and saves a plot.
+    Processing Logic:
+        - Creates a title for the plot.
+        - Gets x ticks and values from the matrix.
+        - Gets y values from the matrix.
+        - Sets titles, ticks, and labels for the plot.
+        - Rotates tick labels and sets alignment.
+        - Creates and saves the bar plot in the specified folder."""
+    
 
     # Prepare title and start plot
     title = 'Per-frame depth evaluation of **{} at {}m**'.format(key_class, key_range)
@@ -291,6 +327,23 @@ def compute_depth_metrics(config, gt, pred, use_gt_scale=True,
 
 
 def main(args):
+    """Function:
+    def main(args):
+        Calculates and returns the depth metrics for a given set of predicted and ground truth files.
+        Parameters:
+            - args (Namespace): A namespace object containing the arguments for the function.
+        Returns:
+            - filtered_dict (dict): A dictionary containing the calculated depth metrics.
+        Processing Logic:
+            - Gets and sorts the ground-truth and predicted files.
+            - Calculates the metrics for each combination of depth range and semantic class.
+            - Stores the metrics in a dictionary.
+            - Calculates the average metrics for each depth range and semantic class.
+            - Creates a bar plot for each combination of depth range and semantic class.
+            - Saves the individual metrics to a file.
+            - Prints the total metrics for each depth range and semantic class to the terminal.
+            - Creates a summary table with the average metrics for each depth range and semantic class."""
+    
 
     # Get and sort ground-truth and predicted files
     pred_files = glob(os.path.join(args.pred_folder, '*.png'))
