@@ -381,7 +381,7 @@ def main(args):
                         nums = [val2[j][1] for j in range(len(val2))]
                         vals = [val2[j][i+2] for j in range(len(val2))]
                         out_dict[key]['{}'.format(metric_names[i])] = sum(
-                            [n * v for n, v in zip(nums, vals)]) / sum(nums)
+                            n * v for n, v in zip(nums, vals)) / sum(nums)
                         vals = [val2[j][i+2] for j in range(len(val2))]
                         out_dict[key]['{}'.format(metric_names[i])] = sum(vals) / len(vals)
                 else:
@@ -391,7 +391,7 @@ def main(args):
         for key, val in out_dict.items():
             if 'All' not in key:
                 m_abs_rel[key] = val['abs_rel'] if val is not None else None
-        m_abs_rel = sum([val for val in m_abs_rel.values()]) / len(m_abs_rel.values())
+        m_abs_rel = sum(val for val in m_abs_rel.values()) / len(m_abs_rel.values())
 
         filtered_dict = {
             'AbsRel': out_dict['All_200m']['abs_rel'],
